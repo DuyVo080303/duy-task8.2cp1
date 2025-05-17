@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DIRECTORY_PATH = 'D:\\DESKTOP\\Deakin\\T1_2025\\SIT753\\Week 6'
+        DIRECTORY_PATH = 'https://github.com/DuyVo080303/duy-task8.2cp1.git'
         TESTING_ENVIRONMENT = 'staging-server'
         PRODUCTION_ENVIRONMENT = 'Duy Production'
     }
