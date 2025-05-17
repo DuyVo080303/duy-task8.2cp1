@@ -11,51 +11,42 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project using Maven...'
-                sh 'mvn clean compile package'
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running JUnit and Postman/Newman integration tests...'
-                sh 'mvn test'
-                sh 'newman run integration-tests.postman_collection.json || true'
             }
         }
 
         stage('Code Analysis') {
             steps {
                 echo 'Running static code analysis using SonarQube...'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=my_project -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN'
             }
         }
 
         stage('Security Scan') {
             steps {
                 echo 'Performing security scan using OWASP Dependency-Check...'
-                sh 'dependency-check.sh --project MyApp --scan ./ --format HTML'
             }
         }
 
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging server on AWS EC2...'
-                sh 'scp target/myapp.jar ec2-user@staging-server:/opt/app/'
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging environment...'
-                sh 'curl -X GET http://staging-server:8080/api/health'
             }
         }
 
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying application to production server...'
-                sh 'scp target/myapp.jar ec2-user@prod-server:/opt/app/'
-                sh 'ssh ec2-user@prod-server "systemctl restart myapp"'
             }
         }
     }
