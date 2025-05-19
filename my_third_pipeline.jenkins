@@ -49,12 +49,6 @@ pipeline {
                 echo 'Deploying application to production server...'
             }        
         }
-
-        stage('Completed') {
-            steps {
-                echo 'Completed !!!'
-            }
-        }
     }
 }
 
